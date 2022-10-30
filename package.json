@@ -1,4 +1,10 @@
 {
-  "name": "AMMSDK",
-  "packageManager": "yarn@3.2.4"
+  "name": "ammsdk",
+  "packageManager": "yarn@3.2.4",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
 }
