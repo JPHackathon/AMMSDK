@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "bradlc.vscode-tailwindcss",
+    "csstools.postcss",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    "usernamehw.errorlens",
+    "formulahendry.auto-rename-tag",
+    "oderwat.indent-rainbow",
+    "IBM.output-colorizer",
+    "christian-kohler.path-intellisense",
+    "VisualStudioExptTeam.vscodeintellicode",
+    "mosapride.zenkaku",
+    "GitHub.vscode-pull-request-github"
+  ],
+
+  "unwantedRecommendations": []
+}
