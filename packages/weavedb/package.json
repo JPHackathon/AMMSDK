@@ -1,0 +1,16 @@
+{
+  "name": "weavedb",
+  "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "deployDB": "yarn ts-node ./scripts/deployDB.ts"
+  },
+  "dependencies": {
+    "arweave": "^1.11.6",
+    "warp-contracts": "1.1.14"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.11.8",
+    "ts-node": "^10.9.1"
+  }
+}
