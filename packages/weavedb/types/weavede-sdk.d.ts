@@ -31,7 +31,7 @@ declare module "weavedb-sdk" {
   export type WarpSigner = SigningFunction | ArweaveWallet | "use_wallet";
 
   export interface EthWallet {
-    wallet: string;
+    wallet?: string;
     privateKey: string;
   }
 
@@ -52,6 +52,7 @@ declare module "weavedb-sdk" {
 
   export default class SDK {
     constructor(config: WeaveDBConfig);
+    arweave: Arweave; // maybe
     cget<T = any>(path: string, ...query: string[][]): Promise<T>;
     add<T = any>(data: T, path: string, user: EthWallet): Promise<void>;
     update<T = any>(
@@ -66,5 +67,7 @@ declare module "weavedb-sdk" {
     createTempAddress(
       address: string
     ): Promise<{ tx: any; identity: any; err: any }>;
+    setSchema<T = any>(schema: T, path: string, user: EthWallet): Promise<void>;
+    setRules<T = any>(rules: T, path: string, user: EthWallet): Promise<void>;
   }
 }

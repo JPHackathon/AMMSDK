@@ -2292,7 +2292,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:5.7.2, ethers@npm:^5.5.1":
+"ethers@npm:5.7.2, ethers@npm:^5.5.1, ethers@npm:^5.7.2":
   version: 5.7.2
   resolution: "ethers@npm:5.7.2"
   dependencies:
@@ -4331,7 +4331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"secp256k1@npm:4.0.3, secp256k1@npm:^4.0.1":
+"secp256k1@npm:4.0.3, secp256k1@npm:^4.0.1, secp256k1@npm:^4.0.3":
   version: 4.0.3
   resolution: "secp256k1@npm:4.0.3"
   dependencies:
@@ -4986,6 +4986,8 @@ __metadata:
     "@tsconfig/node16": ^1.0.3
     "@types/node": ^18.11.8
     arweave: ^1.11.6
+    ethers: ^5.7.2
+    secp256k1: ^4.0.3
     ts-node: ^10.9.1
     warp-contracts: 1.1.14
     weavedb-sdk: ^0.5.8

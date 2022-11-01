@@ -1,11 +1,17 @@
+import { ethers } from "ethers";
 import fs from "fs/promises";
 import path from "path";
 import SDK from "weavedb-sdk";
-s;
+import { GameRules, PairRules, UserMappingRules } from "../schema/amm.rules";
+import {
+  GameSchema,
+  PairSchema,
+  UserMappingSchema,
+} from "../schema/amm.schema";
 
 const contractTxId = "xwYOmTylx4j0MZz5FbDNxuhyZefkzPsBJ679raFF_CM"; // maybe
 
-export const setup = async () => {
+const setup = async () => {
   const wallet = JSON.parse(
     await fs.readFile(path.join(__dirname, "../.wallet/wallet.json"), "utf-8")
   );
@@ -21,4 +27,22 @@ export const setup = async () => {
       timeout: 200000,
     },
   });
+
+  const tempPrivatekey = ethers.Wallet.createRandom().privateKey;
+  await sdk.setSchema(GameSchema, "games", {
+    privateKey: tempPrivatekey,
+  });
+  await sdk.setSchema(PairSchema, "pairs", { privateKey: tempPrivatekey });
+  await sdk.setSchema(UserMappingSchema, "user_mappings", {
+    privateKey: tempPrivatekey,
+  });
+  await sdk.setRules(GameRules, "games", { privateKey: tempPrivatekey });
+  await sdk.setRules(PairRules, "pairs", { privateKey: tempPrivatekey });
+  await sdk.setRules(UserMappingRules, "user_mappings", {
+    privateKey: tempPrivatekey,
+  });
 };
+
+setup()
+  .catch(console.error)
+  .finally(() => process.exit(0));
