@@ -1,7 +1,15 @@
 {
   "name": "sdk",
   "packageManager": "yarn@3.2.4",
+  "scripts": {
+    "build": "rollup --configPlugin typescript --config rollup.config.ts",
+    "build:watch": "rollup --configPlugin typescript --config rollup.config.ts -w",
+    "lint-fix": "eslint --cache --fix src/ && prettier --write src/"
+  },
   "devDependencies": {
-    "rollup": "^3.2.3"
+    "@rollup/plugin-typescript": "^9.0.2",
+    "rollup": "^3.2.3",
+    "rollup-plugin-dts": "^5.0.0",
+    "typescript": "^4.8.4"
   }
 }
