@@ -2,7 +2,8 @@
   "name": "weavedb",
   "packageManager": "yarn@3.2.4",
   "scripts": {
-    "deployDB": "yarn ts-node ./scripts/deployDB.ts"
+    "deployDB": "yarn ts-node ./scripts/deployDB.ts",
+    "setupDB": "yarn ts-node ./scripts/setup-amm.ts"
   },
   "dependencies": {
     "arweave": "^1.11.6",

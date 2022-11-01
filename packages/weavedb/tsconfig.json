@@ -1,1 +1,9 @@
-{ "extends": "@tsconfig/node16" }
+{
+  "extends": "@tsconfig/node16",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "weavedb-sdk": ["types/weavede-sdk.d.ts"]
+    }
+  }
+}
