@@ -11,6 +11,7 @@
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",
     "@types/node": "^18.11.8",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "weavedb-sdk": "^0.5.8"
   }
 }
