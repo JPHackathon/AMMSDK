@@ -11,5 +11,9 @@
     "rollup": "^3.2.3",
     "rollup-plugin-dts": "^5.0.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "weavedb-sdk": "^0.5.8"
   }
 }
