@@ -21,9 +21,11 @@ export declare class AMMSDK {
     readonly weaveDB: WeaveDB;
     constructor({ contractTxId, wallet, arweave, }: AMMOptions);
     getGameData(address: string): Promise<any>;
+    getGames(): Promise<any>;
     relateUser(data: UserMapData, wallet: EthWallet): Promise<void>;
     getUserMapData(gameAddress: string, userAddress: string): Promise<any>;
     getPair(_game1: string, _game2: string): Promise<any>;
+    getPairs(): Promise<any>;
     static getOutputAmount(inputAmount: number, inputReserve: number, outputReserve: number): number;
     swap(from: string, to: string, amountIn: number, wallet: EthWallet): Promise<void>;
 }

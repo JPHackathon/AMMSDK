@@ -53,6 +53,11 @@ export class AMMSDK {
     return this.weaveDB.cget("games", address);
   }
 
+  async getGames() {
+    const games = await this.weaveDB.cget("games");
+    return games;
+  }
+
   async relateUser(data: UserMapData, wallet: EthWallet) {
     await this.weaveDB.set(
       data,
@@ -74,6 +79,11 @@ export class AMMSDK {
     const [game1, game2] = [_game1, _game2].sort();
     const pairData = await this.weaveDB.cget("pairs", `${game1}:${game2}`);
     return pairData;
+  }
+
+  async getPairs() {
+    const pairs = await this.weaveDB.cget("pairs");
+    return pairs;
   }
 
   static getOutputAmount(

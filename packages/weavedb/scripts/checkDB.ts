@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
+import { ethers } from "ethers";
 import SDK from "weavedb-sdk";
 
 const contractTxId = "xwYOmTylx4j0MZz5FbDNxuhyZefkzPsBJ679raFF_CM"; // maybe
@@ -21,9 +22,12 @@ const setup = async () => {
       timeout: 200000,
     },
   });
-
-  //@ts-ignore
-  console.log("sdk", await sdk.getSchema("games"));
+  const tempPrivatekey = ethers.Wallet.createRandom().privateKey;
+  const data = await sdk.delete(
+    "pairs",
+    "0x42Eb61f392cF008D998Fe09D400b07566B046384:0xa85b5e58dA6e57fb8e1ebbe75492d6CB878C5A0b",
+    { privateKey: tempPrivatekey }
+  );
 };
 
 setup()

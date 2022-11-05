@@ -1,14 +1,6 @@
 export const GameRules = {
   "allow write": {
-    and: [
-      { "!=": [{ var: "request.auth.signer" }, null] },
-      {
-        "==": [
-          { var: "request.auth.signer" },
-          { var: "resource.newData.signer" },
-        ],
-      },
-    ],
+    and: [{ "!=": [{ var: "request.auth.signer" }, null] }],
   },
 };
 
@@ -22,14 +14,6 @@ export const PairRules = {
 
 export const UserMappingRules = {
   "allow write": {
-    and: [
-      { "!=": [{ var: "request.auth.signer" }, null] },
-      {
-        "==": [
-          { var: "request.auth.signer" },
-          { var: "resource.newData.user_address" },
-        ],
-      },
-    ],
+    and: [{ "!=": [{ var: "request.auth.signer" }, null] }],
   },
 };

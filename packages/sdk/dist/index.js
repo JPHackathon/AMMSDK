@@ -99,6 +99,19 @@ var AMMSDK = /** @class */ (function () {
             });
         });
     };
+    AMMSDK.prototype.getGames = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var games;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.weaveDB.cget("games")];
+                    case 1:
+                        games = _a.sent();
+                        return [2 /*return*/, games];
+                }
+            });
+        });
+    };
     AMMSDK.prototype.relateUser = function (data, wallet) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -135,6 +148,19 @@ var AMMSDK = /** @class */ (function () {
                     case 1:
                         pairData = _b.sent();
                         return [2 /*return*/, pairData];
+                }
+            });
+        });
+    };
+    AMMSDK.prototype.getPairs = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var pairs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.weaveDB.cget("pairs")];
+                    case 1:
+                        pairs = _a.sent();
+                        return [2 /*return*/, pairs];
                 }
             });
         });

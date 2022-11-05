@@ -8,5 +8,11 @@ export const useAMM = () => {
   const connectWallet = useConnectWallet();
   const loginWeave = useLoginWeave();
 
-  return { ...ethereumData, ...weaveData, connectWallet, loginWeave };
+  return {
+    ...ethereumData,
+    ...weaveData,
+
+    connectWallet,
+    loginWeave,
+  };
 };

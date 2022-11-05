@@ -1,7 +1,9 @@
-import { ethers } from "ethers";
 import fs from "fs/promises";
 import path from "path";
+
+import { ethers } from "ethers";
 import SDK from "weavedb-sdk";
+
 import { GameRules, PairRules, UserMappingRules } from "../schema/amm.rules";
 import {
   GameSchema,

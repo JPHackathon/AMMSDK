@@ -54,6 +54,12 @@ declare module "weavedb-sdk" {
     constructor(config: WeaveDBConfig);
     arweave: Arweave; // maybe
     cget<T = any>(path: string, ...query: string[][]): Promise<T>;
+    set<T = any>(
+      data: T,
+      path: string,
+      doc_id: string,
+      user: EthWallet
+    ): Promise<Transaction>;
     add<T = any>(data: T, path: string, user: EthWallet): Promise<void>;
     update<T = any>(
       data: T,

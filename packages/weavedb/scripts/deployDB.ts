@@ -1,6 +1,7 @@
-import Arweave from "arweave";
 import fs from "fs/promises";
 import path from "path";
+
+import Arweave from "arweave";
 import { WarpNodeFactory } from "warp-contracts";
 
 const srcTxId = "G7aMmk1Fux6Dqw7M7CFoNQf5KZV2J1UCuZjfEn_VFVM";
