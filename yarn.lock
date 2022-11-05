@@ -3849,6 +3849,7 @@ __metadata:
     "@types/react-dom": 18.0.8
     autoprefixer: ^10.4.13
     boring-avatars: ^1.7.0
+    buffer: ^6.0.3
     clsx: ^1.2.1
     daisyui: ^2.38.0
     eslint: 8.26.0
@@ -3859,6 +3860,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     recoil: ^0.7.6
+    recoil-persist: ^4.2.0
     tailwindcss: ^3.2.2
     typescript: 4.8.4
     weavedb-sdk: ^0.5.8
@@ -5422,6 +5424,15 @@ __metadata:
   dependencies:
     resolve: ^1.9.0
   checksum: 15f55f55e06c175d98df85d503b139982378e7ca34e157439125e5a6f25a5cbd9cfe2aa2d1052e2c1edf89d7d22dc020c911fc968702c84f669a16a12a1ec7ac
+  languageName: node
+  linkType: hard
+
+"recoil-persist@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "recoil-persist@npm:4.2.0"
+  peerDependencies:
+    recoil: ^0.7.2
+  checksum: 1c8a6be4bb914b383429603e910aba80734311d8657ddf9f94a39513da0eb41fd6a2b74439f93658daf465d2e66a2d890e9f6b2f8a047e4fb99dc5b31f301515
   languageName: node
   linkType: hard
 

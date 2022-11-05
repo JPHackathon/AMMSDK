@@ -15,6 +15,10 @@ export const useLoginWeave = () => {
     const { tx, identity } = await AMM.weaveDB.createTempAddress(address);
     if (!tx || tx.err) throw new Error("Failed to relate address TX");
 
+    console.log({
+      wallet: address,
+      privateKey: identity.privateKey,
+    });
     set(TempWalletStates(address), {
       wallet: address,
       privateKey: identity.privateKey,
@@ -25,5 +29,6 @@ export const useLoginWeave = () => {
 
 export const useWeaveData = () => {
   const tempWallet = useRecoilValue(TempWalletSelector);
+
   return { tempWallet };
 };

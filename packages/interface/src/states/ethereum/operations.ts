@@ -9,7 +9,7 @@ export const useConnectWallet = () => {
   const connectWallet = useRecoilCallback(({ set }) => async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     await provider.send("eth_requestAccounts", []);
-
+    set(AddressState, await provider.getSigner().getAddress());
     if (handleAccountsChanged)
       window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
 

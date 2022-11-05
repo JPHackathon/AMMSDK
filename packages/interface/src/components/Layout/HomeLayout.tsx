@@ -10,18 +10,32 @@ import { useAMM } from "../../hooks/useAMM";
 import { Drawer, NoSSR, ThemeBox } from "../Elements";
 
 const SideBody = () => {
-  const { address } = useAMM();
+  const { tempWallet, address, loginWeave } = useAMM();
+  console.log(address);
   return (
     <>
-      <div className="border-b-2 flex p-2">
-        <div className="card overflow-hidden h-12 w-12">
-          <Avatar
-            size="100%"
-            name={address || "0x00"}
-            variant="marble"
-            square
-          />
-        </div>
+      <div className="border-b-2 flex p-2 h-16 items-center">
+        {tempWallet ? (
+          <>
+            <div className="card overflow-hidden h-12 w-12">
+              <Avatar
+                size="100%"
+                name={tempWallet.wallet || "0x00"}
+                variant="marble"
+                square
+              />
+            </div>
+            <div className="font-bold ml-2 ">
+              {tempWallet.wallet.slice(0, 6) +
+                "..." +
+                tempWallet.wallet.slice(-6)}
+            </div>
+          </>
+        ) : (
+          <button className="btn" onClick={loginWeave}>
+            Connect
+          </button>
+        )}
       </div>
       <a className="btn btn-ghost justify-start p-2 gap-2">
         <CalculatorIcon className="w-6 h-6" />
