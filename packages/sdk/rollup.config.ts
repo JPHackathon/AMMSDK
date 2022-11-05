@@ -1,3 +1,6 @@
+import commonjs from "@rollup/plugin-commonjs";
+import json from "@rollup/plugin-json";
+import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 
 export default [
@@ -7,6 +10,6 @@ export default [
       dir: "dist",
       format: "cjs",
     },
-    plugins: [typescript()],
+    plugins: [typescript(), json(), resolve(), commonjs()],
   },
 ];

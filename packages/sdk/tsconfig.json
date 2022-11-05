@@ -4,7 +4,9 @@
     "moduleResolution": "node",
     "module": "ES6",
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "declaration": true
   },
   "include": ["src"]
 }

@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
+
 import SDK from "weavedb-sdk";
 
 const contractTxId = "xwYOmTylx4j0MZz5FbDNxuhyZefkzPsBJ679raFF_CM"; // maybe

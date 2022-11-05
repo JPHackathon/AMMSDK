@@ -50,7 +50,7 @@ declare module "weavedb-sdk" {
     __op: string;
   } & any;
 
-  export default class SDK {
+  class SDK {
     constructor(config: WeaveDBConfig);
     arweave: Arweave; // maybe
     cget<T = any>(path: string, ...query: string[][] | string[]): Promise<T>;
@@ -82,4 +82,6 @@ declare module "weavedb-sdk" {
     setSchema<T = any>(schema: T, path: string, user: EthWallet): Promise<void>;
     setRules<T = any>(rules: T, path: string, user: EthWallet): Promise<void>;
   }
+
+  export default WeaveDB;
 }

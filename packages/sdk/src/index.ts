@@ -1,5 +1,6 @@
 import axios from "axios";
 import WeaveDB, { ArWallet, ArweaveConfig, EthWallet } from "weavedb-sdk";
+
 import DemoWallet from "./assets/wallet.json";
 
 export interface AMMOptions {
