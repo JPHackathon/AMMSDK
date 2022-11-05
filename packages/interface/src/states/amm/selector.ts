@@ -3,6 +3,7 @@ import { selector } from "recoil";
 import { AMM } from "../../libs/ammsdk";
 
 import { AMMUpdateFlagState } from "./atoms";
+import { GameData } from "./types";
 
 export const PairsSelector = selector({
   key: "PairsSelector",
@@ -20,7 +21,7 @@ export const GamesSelector = selector({
   get: async ({ get }) => {
     if (!AMM) return [];
     get(AMMUpdateFlagState);
-    const games = (await AMM.getGames()) as string[];
+    const games = (await AMM.getGames()) as { data: GameData }[];
 
     return games;
   },
