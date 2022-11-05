@@ -3,23 +3,46 @@ import {
   CalculatorIcon,
   RectangleGroupIcon,
 } from "@heroicons/react/24/outline";
+import Avatar from "boring-avatars";
 import { useState } from "react";
 
-import { Drawer, ThemeBox } from "../Elements";
+import { useAMM } from "../../hooks/useAMM";
+import { Drawer, NoSSR, ThemeBox } from "../Elements";
+
+const SideBody = () => {
+  const { address } = useAMM();
+  return (
+    <>
+      <div className="border-b-2 flex p-2">
+        <div className="card overflow-hidden h-12 w-12">
+          <Avatar
+            size="100%"
+            name={address || "0x00"}
+            variant="marble"
+            square
+          />
+        </div>
+      </div>
+      <a className="btn btn-ghost justify-start p-2 gap-2">
+        <CalculatorIcon className="w-6 h-6" />
+        Swap
+      </a>
+      <a className="btn btn-ghost justify-start p-2 gap-2">
+        <RectangleGroupIcon className="w-6 h-6" />
+        Games
+      </a>
+    </>
+  );
+};
 
 const SideDrawer = () => {
   return (
     <div className="sticky top-0 hidden h-screen w-full max-w-xs p-4 md:block">
       <div className="card h-full w-full bg-base-100 p-4 shadow-lg">
         <div className="flex flex-col gap-2">
-          <a className="btn btn-ghost justify-start p-2 gap-2">
-            <CalculatorIcon className="w-6 h-6" />
-            Swap
-          </a>
-          <a className="btn btn-ghost justify-start p-2 gap-2">
-            <RectangleGroupIcon className="w-6 h-6" />
-            Games
-          </a>
+          <NoSSR>
+            <SideBody />
+          </NoSSR>
         </div>
       </div>
     </div>
@@ -32,15 +55,7 @@ export const MobilSideDrawer: React.FC<{
 }> = ({ open, onClose }) => {
   return (
     <Drawer open={open} onClose={onClose}>
-      {" "}
-      <a className="btn btn-ghost justify-start p-2 gap-2">
-        <CalculatorIcon className="w-6 h-6" />
-        Swap
-      </a>
-      <a className="btn btn-ghost justify-start p-2 gap-2">
-        <RectangleGroupIcon className="w-6 h-6" />
-        Games
-      </a>
+      <SideBody />
     </Drawer>
   );
 };

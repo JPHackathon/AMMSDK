@@ -9,6 +9,7 @@ import { TempWalletSelector } from "./selector";
 export const useLoginWeave = () => {
   const connectWallet = useConnectWallet();
   const loginWeave = useRecoilCallback(({ set }) => async () => {
+    if (!AMM) return;
     const provider = await connectWallet();
     const address = await provider.getSigner().getAddress();
     const { tx, identity } = await AMM.weaveDB.createTempAddress(address);

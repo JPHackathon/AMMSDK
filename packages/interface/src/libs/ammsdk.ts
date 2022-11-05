@@ -1,3 +1,3 @@
 import { AMMSDK } from "@ammsdk/sdk";
 
-export const AMM = new AMMSDK({});
+export const AMM = typeof window !== "undefined" ? new AMMSDK({}) : null;
