@@ -7,7 +7,6 @@ export interface AMMOptions {
   contractTxId?: string;
   wallet?: ArWallet;
   arweave?: ArweaveConfig;
-  ethWallet: EthWallet;
 }
 
 export interface GameData {
@@ -28,16 +27,13 @@ export class AMMSDK {
   readonly contractTxId: string;
   readonly weaveDB: WeaveDB;
 
-  private ethWallet: EthWallet;
-
   constructor({
     contractTxId = "xwYOmTylx4j0MZz5FbDNxuhyZefkzPsBJ679raFF_CM",
     wallet = DemoWallet,
     arweave,
-    ethWallet,
   }: AMMOptions) {
     this.contractTxId = contractTxId;
-    this.ethWallet = ethWallet;
+
     this.weaveDB = new WeaveDB({
       wallet,
       contractTxId,
@@ -57,12 +53,12 @@ export class AMMSDK {
     return this.weaveDB.cget("games", address);
   }
 
-  async relateUser(data: UserMapData) {
+  async relateUser(data: UserMapData, wallet: EthWallet) {
     await this.weaveDB.set(
       data,
       "user_mappings",
       `${data.game_address}:${data.user_address}`,
-      this.ethWallet
+      wallet
     );
   }
 
@@ -91,8 +87,8 @@ export class AMMSDK {
     return numerator / denominator;
   }
 
-  async swap(from: string, to: string, amountIn: number) {
-    if (!this.ethWallet.wallet) return;
+  async swap(from: string, to: string, amountIn: number, wallet: EthWallet) {
+    if (!wallet.wallet) return;
 
     const { data: pairData } = await this.getPair(from, to);
     const { address0, address1, amount0, amount1 } = pairData;
@@ -114,8 +110,8 @@ export class AMMSDK {
     ] = await Promise.all([
       this.getGameData(from),
       this.getGameData(to),
-      this.getUserMapData(from, this.ethWallet.wallet),
-      this.getUserMapData(to, this.ethWallet.wallet),
+      this.getUserMapData(from, wallet.wallet),
+      this.getUserMapData(to, wallet.wallet),
     ]);
 
     if (!fromUserData.game_user_id)
@@ -138,7 +134,7 @@ export class AMMSDK {
       },
       "pairs",
       `${address0}:${address1}`,
-      this.ethWallet
+      wallet
     );
   }
 }

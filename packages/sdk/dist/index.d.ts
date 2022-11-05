@@ -3,7 +3,6 @@ export interface AMMOptions {
     contractTxId?: string;
     wallet?: ArWallet;
     arweave?: ArweaveConfig;
-    ethWallet: EthWallet;
 }
 export interface GameData {
     signer: string;
@@ -20,12 +19,11 @@ export interface UserMapData {
 export declare class AMMSDK {
     readonly contractTxId: string;
     readonly weaveDB: WeaveDB;
-    private ethWallet;
-    constructor({ contractTxId, wallet, arweave, ethWallet, }: AMMOptions);
+    constructor({ contractTxId, wallet, arweave, }: AMMOptions);
     getGameData(address: string): Promise<any>;
-    relateUser(data: UserMapData): Promise<void>;
+    relateUser(data: UserMapData, wallet: EthWallet): Promise<void>;
     getUserMapData(gameAddress: string, userAddress: string): Promise<any>;
     getPair(_game1: string, _game2: string): Promise<any>;
     static getOutputAmount(inputAmount: number, inputReserve: number, outputReserve: number): number;
-    swap(from: string, to: string, amountIn: number): Promise<void>;
+    swap(from: string, to: string, amountIn: number, wallet: EthWallet): Promise<void>;
 }
