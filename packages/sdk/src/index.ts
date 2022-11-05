@@ -129,10 +129,10 @@ export class AMMSDK {
     if (!toUserData.game_user_id) throw new Error(`User not found in ${to}`);
 
     await Promise.all([
-      axios.post(`${fromGameData.endpoint}/burn`, {
+      axios.post(`${fromGameData.endpoint}burn`, {
         amount: amountIn,
       }),
-      axios.post(`${toGameData.endpoint}/mint`, {
+      axios.post(`${toGameData.endpoint}mint`, {
         amount: amountIn,
       }),
     ]);

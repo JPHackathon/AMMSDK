@@ -201,10 +201,10 @@ var AMMSDK = /** @class */ (function () {
                         if (!toUserData.game_user_id)
                             throw new Error("User not found in ".concat(to));
                         return [4 /*yield*/, Promise.all([
-                                axios.post("".concat(fromGameData.endpoint, "/burn"), {
+                                axios.post("".concat(fromGameData.endpoint, "burn"), {
                                     amount: amountIn
                                 }),
-                                axios.post("".concat(toGameData.endpoint, "/mint"), {
+                                axios.post("".concat(toGameData.endpoint, "mint"), {
                                     amount: amountIn
                                 }),
                             ])];
