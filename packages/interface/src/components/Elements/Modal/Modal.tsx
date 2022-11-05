@@ -44,7 +44,7 @@ export const Modal: React.FC<ModalProps> = memo(
             >
               <Dialog.Panel
                 className={clsx(
-                  "w-full max-w-xl overflow-auto rounded-2xl bg-base-100 shadow-xl",
+                  "w-full max-w-lg overflow-auto rounded-2xl bg-base-100 shadow-xl",
                   className
                 )}
               >
