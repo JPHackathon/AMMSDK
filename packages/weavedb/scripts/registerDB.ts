@@ -25,7 +25,7 @@ const setup = async () => {
 
   const demoGame1 = ethers.Wallet.createRandom();
   const demoGame2 = ethers.Wallet.createRandom();
-  await sdk.add(
+  await sdk.set(
     {
       signer: demoGame1.address,
       name: "VLスネークゲーム",
@@ -34,11 +34,12 @@ const setup = async () => {
       endpoint: "https://us-central1-tokyo-web3.cloudfunctions.net/",
     },
     "games",
+    demoGame1.address,
     {
       privateKey: demoGame1.privateKey,
     }
   );
-  await sdk.add(
+  await sdk.set(
     {
       signer: demoGame2.address,
       name: "パックマンゲーム",
@@ -47,6 +48,7 @@ const setup = async () => {
       endpoint: "https://us-central1-tokyo-web3.cloudfunctions.net/demo2-",
     },
     "games",
+    demoGame2.address,
     {
       privateKey: demoGame2.privateKey,
     }

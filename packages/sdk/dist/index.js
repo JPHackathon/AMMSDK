@@ -185,7 +185,7 @@ var AMMSDK = /** @class */ (function () {
                         address0 = pairData.address0, address1 = pairData.address1, amount0 = pairData.amount0, amount1 = pairData.amount1;
                         if (Number(amount0) === 0 || Number(amount1) === 0)
                             throw new Error("Pair reserves are empty");
-                        return [4 /*yield*/, AMMSDK.getOutputAmount(amountIn, from === address0 ? amount0 : amount1, from === address1 ? amount1 : amount0)];
+                        return [4 /*yield*/, AMMSDK.getOutputAmount(amountIn, from === address0 ? amount0 : amount1, from === address0 ? amount1 : amount0)];
                     case 2:
                         amountOut = _b.sent();
                         return [4 /*yield*/, Promise.all([
@@ -195,17 +195,27 @@ var AMMSDK = /** @class */ (function () {
                                 this.getUserMapData(to, wallet.wallet),
                             ])];
                     case 3:
-                        _a = _b.sent(), fromGameData = _a[0].data, toGameData = _a[1].data, fromUserData = _a[2].data, toUserData = _a[3].data;
-                        if (!fromUserData.game_user_id)
+                        _a = _b.sent(), fromGameData = _a[0], toGameData = _a[1], fromUserData = _a[2], toUserData = _a[3];
+                        if (!fromGameData)
+                            throw new Error("From game data not found");
+                        if (!toGameData)
+                            throw new Error("To game data not found");
+                        if (!fromUserData)
+                            throw new Error("From user data not found");
+                        if (!toUserData)
+                            throw new Error("To user data not found");
+                        if (!fromUserData.data.game_user_id)
                             throw new Error("User not found in ".concat(from));
-                        if (!toUserData.game_user_id)
+                        if (!toUserData.data.game_user_id)
                             throw new Error("User not found in ".concat(to));
                         return [4 /*yield*/, Promise.all([
-                                axios.post("".concat(fromGameData.endpoint, "burn"), {
-                                    amount: amountIn
+                                axios.post("".concat(fromGameData.data.endpoint, "burn"), {
+                                    userId: fromUserData.data.game_user_id,
+                                    value: amountIn
                                 }),
-                                axios.post("".concat(toGameData.endpoint, "mint"), {
-                                    amount: amountIn
+                                axios.post("".concat(toGameData.data.endpoint, "mint"), {
+                                    userId: toUserData.data.game_user_id,
+                                    value: amountOut
                                 }),
                             ])];
                     case 4:

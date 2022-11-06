@@ -109,31 +109,34 @@ export class AMMSDK {
     const amountOut = await AMMSDK.getOutputAmount(
       amountIn,
       from === address0 ? amount0 : amount1,
-      from === address1 ? amount1 : amount0
+      from === address0 ? amount1 : amount0
     );
 
-    const [
-      { data: fromGameData },
-      { data: toGameData },
-      { data: fromUserData },
-      { data: toUserData },
-    ] = await Promise.all([
-      this.getGameData(from),
-      this.getGameData(to),
-      this.getUserMapData(from, wallet.wallet),
-      this.getUserMapData(to, wallet.wallet),
-    ]);
+    const [fromGameData, toGameData, fromUserData, toUserData] =
+      await Promise.all([
+        this.getGameData(from),
+        this.getGameData(to),
+        this.getUserMapData(from, wallet.wallet),
+        this.getUserMapData(to, wallet.wallet),
+      ]);
+    if (!fromGameData) throw new Error("From game data not found");
+    if (!toGameData) throw new Error("To game data not found");
+    if (!fromUserData) throw new Error("From user data not found");
+    if (!toUserData) throw new Error("To user data not found");
 
-    if (!fromUserData.game_user_id)
+    if (!fromUserData.data.game_user_id)
       throw new Error(`User not found in ${from}`);
-    if (!toUserData.game_user_id) throw new Error(`User not found in ${to}`);
+    if (!toUserData.data.game_user_id)
+      throw new Error(`User not found in ${to}`);
 
     await Promise.all([
-      axios.post(`${fromGameData.endpoint}burn`, {
-        amount: amountIn,
+      axios.post(`${fromGameData.data.endpoint}burn`, {
+        userId: fromUserData.data.game_user_id,
+        value: amountIn,
       }),
-      axios.post(`${toGameData.endpoint}mint`, {
-        amount: amountIn,
+      axios.post(`${toGameData.data.endpoint}mint`, {
+        userId: toUserData.data.game_user_id,
+        value: amountOut,
       }),
     ]);
 

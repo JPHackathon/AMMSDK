@@ -23,9 +23,15 @@ const setup = async () => {
     },
   });
   const tempPrivatekey = ethers.Wallet.createRandom().privateKey;
+  await sdk.delete("games", "pw7JtSn1nlKdbCxddipe", {
+    privateKey: tempPrivatekey,
+  });
+  await sdk.delete("games", "rZhAetavicqWJAoGBxKr", {
+    privateKey: tempPrivatekey,
+  });
   const data = await sdk.delete(
     "pairs",
-    "0x42Eb61f392cF008D998Fe09D400b07566B046384:0xa85b5e58dA6e57fb8e1ebbe75492d6CB878C5A0b",
+    "0xe4DfB05e942eB55325978669f489F2DCEB8B0D45:0xf4A9fE0E352Fa9E77f44E69d8FA91ECe3DBA511A",
     { privateKey: tempPrivatekey }
   );
 };

@@ -1,4 +1,5 @@
 import { AMMSDK } from "@ammsdk/sdk";
+import axios from "axios";
 import Avatar from "boring-avatars";
 import clsx from "clsx";
 import { Suspense, useMemo, useState } from "react";
@@ -91,15 +92,13 @@ const RelateModal: React.FC<
       <div className="flex gap-2">
         <button
           className={clsx("btn btn-primary flex-1", loading && "loading")}
+          disabled={loading}
           onClick={handleSubmit}
         >
           Submit
         </button>
         <button
-          className={clsx(
-            "btn btn-error btn-outline flex-1",
-            loading && "loading"
-          )}
+          className={clsx("btn btn-error btn-outline flex-1")}
           disabled={loading}
           onClick={props.onClose}
         >
@@ -111,7 +110,10 @@ const RelateModal: React.FC<
 };
 
 const SwapCard = () => {
+  const { tempWallet } = useWeaveData();
   const { pairs, games } = useAMMData();
+
+  const [loading, setIsLoading] = useState(false);
 
   const { register: game0Register, open: game0Open } = useModal();
   const { register: game1Register, open: game1Open } = useModal();
@@ -147,6 +149,27 @@ const SwapCard = () => {
 
     return outputAmount;
   }, [game0, game1, inputAmount, pairs]);
+
+  const swap = async () => {
+    if (!AMM || !game0 || !game1 || !tempWallet) return;
+
+    setIsLoading(true);
+    try {
+      console.log(
+        await axios.get(
+          "https://us-central1-tokyo-web3.cloudfunctions.net/balanceOf?userId=ffEQY9lChRcV8inCMrlDowFreJ02"
+        )
+      );
+      await AMM.swap(
+        game0.signer,
+        game1.signer,
+        Number(inputAmount),
+        tempWallet
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -209,7 +232,13 @@ const SwapCard = () => {
         </div>
       )}
       {game0 && game1 && relation0 && relation1 && (
-        <button className="btn btn-primary w-full">Swap</button>
+        <button
+          className={clsx("btn btn-primary w-full", loading && "loading")}
+          disabled={loading}
+          onClick={swap}
+        >
+          Swap
+        </button>
       )}
     </>
   );
