@@ -81,7 +81,7 @@ const RelateModal: React.FC<
     }
   };
   return (
-    <Modal className="p-6 flex flex-col gap-2" {...props}>
+    <Modal className="p-4 flex flex-col gap-2" {...props}>
       <div>
         <h2 className="font-bold text-xl">Relate Account</h2>
         <p className="pl-2">relate wallet address to game account</p>

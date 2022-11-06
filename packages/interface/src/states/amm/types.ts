@@ -4,6 +4,7 @@ export interface GameData {
   description: string;
   symbol: string;
   endpoint: string;
+  url: string;
 }
 
 export interface PairData {

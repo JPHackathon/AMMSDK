@@ -23,15 +23,22 @@ const setup = async () => {
     },
   });
   const tempPrivatekey = ethers.Wallet.createRandom().privateKey;
-  await sdk.delete("games", "pw7JtSn1nlKdbCxddipe", {
-    privateKey: tempPrivatekey,
-  });
-  await sdk.delete("games", "rZhAetavicqWJAoGBxKr", {
-    privateKey: tempPrivatekey,
-  });
-  const data = await sdk.delete(
-    "pairs",
-    "0xe4DfB05e942eB55325978669f489F2DCEB8B0D45:0xf4A9fE0E352Fa9E77f44E69d8FA91ECe3DBA511A",
+  await sdk.update(
+    {
+      description: "VeryLongなスネークゲーム！！スマホから遊べます！！",
+      url: "https://melodic-toffee-b33dc3.netlify.app/#/",
+    },
+    "games",
+    "0x52f1b24E957E02ed345433E718Ce1d9dB0c3dFC8",
+    { privateKey: tempPrivatekey }
+  );
+  await sdk.update(
+    {
+      description: "パックマンがGameFiに！！パソコンから遊べます！！",
+      url: "https://playful-pothos-3b3146.netlify.app/#/",
+    },
+    "games",
+    "0xe9492f658E32C1936dFb6fbF08d85b08CaD4B795",
     { privateKey: tempPrivatekey }
   );
 };

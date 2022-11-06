@@ -1,11 +1,12 @@
 export const GameSchema = {
   type: "object",
-  required: ["signer", "name", "description", "symbol", "endpoint"],
+  required: ["signer", "name", "description", "symbol", "url", "endpoint"],
   properties: {
     signer: { type: "string" },
     name: { type: "string" },
     description: { type: "string" },
     symbol: { type: "string" },
+    url: { type: "string" },
     endpoint: { type: "string" },
   },
 };
