@@ -1,9 +1,8 @@
 import { AMMSDK } from "@ammsdk/sdk";
-import axios from "axios";
 import Avatar from "boring-avatars";
 import clsx from "clsx";
 import { Suspense, useMemo, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import {
   Modal,
@@ -14,8 +13,11 @@ import {
 import { HomeLayout } from "../components/Layout/HomeLayout";
 import { AMM } from "../libs/ammsdk";
 import { AMMUpdateFlagState } from "../states/amm/atoms";
-import { useAMMData } from "../states/amm/operations";
-import { RelationSelectors } from "../states/amm/selector";
+import {
+  useAMMData,
+  useBalances,
+  useRelations,
+} from "../states/amm/operations";
 import { GameData } from "../states/amm/types";
 import { useWeaveData } from "../states/weaveDB/operations";
 
@@ -122,8 +124,10 @@ const SwapCard = () => {
 
   const [game0, setgame0] = useState<GameData | null>(null);
   const [game1, setgame1] = useState<GameData | null>(null);
-  const relation0 = useRecoilValue(RelationSelectors(game0?.signer || ""));
-  const relation1 = useRecoilValue(RelationSelectors(game1?.signer || ""));
+  const relation0 = useRelations(game0);
+  const relation1 = useRelations(game1);
+  const balance0 = useBalances(game0);
+  const balance1 = useBalances(game1);
 
   const [inputAmount, setInputAmount] = useState<string>("");
 
@@ -155,11 +159,6 @@ const SwapCard = () => {
 
     setIsLoading(true);
     try {
-      console.log(
-        await axios.get(
-          "https://us-central1-tokyo-web3.cloudfunctions.net/balanceOf?userId=ffEQY9lChRcV8inCMrlDowFreJ02"
-        )
-      );
       await AMM.swap(
         game0.signer,
         game1.signer,
@@ -178,7 +177,12 @@ const SwapCard = () => {
       {game0 && <RelateModal {...relate0Register} game={game0} />}
       {game1 && <RelateModal {...relate1Register} game={game1} />}
       <div className="flex card flex-col bg-base-200 p-2">
-        <div className="font-bold text-lg">From</div>
+        <div className="flex items-center">
+          <div className="font-bold text-lg flex-1">From</div>
+          <div className="text-base-content/75 font-bold">
+            Balance: {balance0}
+          </div>
+        </div>
         <div className="flex items-center p-2">
           <button
             className="btn btn-outline normal-case gap-2 p-2"
@@ -199,7 +203,12 @@ const SwapCard = () => {
         </div>
       </div>
       <div className="flex card flex-col p-2 border-2">
-        <div className="font-bold text-lg">To</div>
+        <div className="flex items-center">
+          <div className="font-bold text-lg flex-1">To</div>
+          <div className="text-base-content/75 font-bold">
+            Balance: {balance1}
+          </div>
+        </div>
         <div className="flex items-center p-2">
           <button
             className="btn btn-outline normal-case p-2 gap-2"

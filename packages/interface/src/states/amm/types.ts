@@ -12,3 +12,9 @@ export interface PairData {
   amount0: number;
   amount1: number;
 }
+
+export interface RelationMap {
+  game_address: string;
+  game_user_id: string;
+  user_address: string;
+}

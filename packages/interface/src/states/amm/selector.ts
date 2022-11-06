@@ -5,7 +5,7 @@ import { AMM } from "../../libs/ammsdk";
 import { AddressState } from "../ethereum/atoms";
 
 import { AMMUpdateFlagState } from "./atoms";
-import { GameData, PairData } from "./types";
+import { GameData, PairData, RelationMap } from "./types";
 
 export const PairsSelector = selector({
   key: "PairsSelector",
@@ -29,7 +29,10 @@ export const GamesSelector = selector({
   },
 });
 
-export const RelationSelectors = selectorFamily<string, string>({
+export const RelationSelectors = selectorFamily<
+  { data: RelationMap } | null,
+  string
+>({
   key: "RelationSelectors",
   get:
     (gameAddress) =>
@@ -44,22 +47,27 @@ export const RelationSelectors = selectorFamily<string, string>({
     },
 });
 
-export const BalancesSelector = selector({
+export const BalancesSelector = selectorFamily<number | null, string>({
   key: "BalancesSelector",
-  get: async ({ get }) => {
-    if (!AMM) return [];
-    get(AMMUpdateFlagState);
-    const games = get(GamesSelector);
-    const balances = await Promise.all(
-      games.map(async ({ data }) => {
-        console.log(data);
-        const res = await axios.get(
-          `https://balance-lic6gc3kiq-uc.a.run.app?userId=ffEQY9lChRcV8inCMrlDowFreJ02`
-        );
-        console.log(res);
-      })
-    );
+  get:
+    (gameAddress) =>
+    async ({ get }) => {
+      if (!AMM) return [];
+      get(AMMUpdateFlagState);
+      const game = get(GamesSelector).find(
+        (game) => game.data.signer === gameAddress
+      );
+      if (!game) return null;
 
-    return games;
-  },
+      const relationMap = get(RelationSelectors(gameAddress));
+
+      if (!relationMap) return null;
+
+      const balance = await axios.get(
+        `${game.data.endpoint}balanceOf?userId=${relationMap.data.game_user_id}`
+      );
+      console.log(balance.data);
+
+      return balance.data.value;
+    },
 });
