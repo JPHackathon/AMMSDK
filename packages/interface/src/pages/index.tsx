@@ -114,6 +114,7 @@ const RelateModal: React.FC<
 const SwapCard = () => {
   const { tempWallet } = useWeaveData();
   const { pairs, games } = useAMMData();
+  const setUpdate = useSetRecoilState(AMMUpdateFlagState);
 
   const [loading, setIsLoading] = useState(false);
 
@@ -156,7 +157,7 @@ const SwapCard = () => {
 
   const swap = async () => {
     if (!AMM || !game0 || !game1 || !tempWallet) return;
-
+    if (balance0 && Number(inputAmount) > balance0) return;
     setIsLoading(true);
     try {
       await AMM.swap(
@@ -165,6 +166,7 @@ const SwapCard = () => {
         Number(inputAmount),
         tempWallet
       );
+      await setUpdate("swap" + Date.now());
     } finally {
       setIsLoading(false);
     }
@@ -180,7 +182,7 @@ const SwapCard = () => {
         <div className="flex items-center">
           <div className="font-bold text-lg flex-1">From</div>
           <div className="text-base-content/75 font-bold">
-            Balance: {balance0}
+            {balance0 && `Balance: ${balance0} ${game0?.symbol}`}
           </div>
         </div>
         <div className="flex items-center p-2">
@@ -206,7 +208,7 @@ const SwapCard = () => {
         <div className="flex items-center">
           <div className="font-bold text-lg flex-1">To</div>
           <div className="text-base-content/75 font-bold">
-            Balance: {balance1}
+            {balance1 && `Balance: ${balance1} ${game1?.symbol}`}
           </div>
         </div>
         <div className="flex items-center p-2">
@@ -243,7 +245,9 @@ const SwapCard = () => {
       {game0 && game1 && relation0 && relation1 && (
         <button
           className={clsx("btn btn-primary w-full", loading && "loading")}
-          disabled={loading}
+          disabled={
+            loading || Boolean(balance0 && Number(inputAmount) > balance0)
+          }
           onClick={swap}
         >
           Swap
