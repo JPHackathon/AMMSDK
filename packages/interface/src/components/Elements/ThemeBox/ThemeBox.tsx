@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { forwardRef } from "react";
 
+import { useTheme } from "../../../states/common/operations";
+
 export type ThemeBoxProps = React.HTMLAttributes<HTMLDivElement> & {
   transparent?: boolean;
 };
@@ -8,6 +10,7 @@ export type ThemeBoxProps = React.HTMLAttributes<HTMLDivElement> & {
 //eslint-disable-next-line react/display-name
 export const ThemeBox = forwardRef<HTMLDivElement, ThemeBoxProps>(
   ({ className, transparent, ...props }, ref) => {
+    const { theme } = useTheme();
     return (
       <div
         ref={ref}
@@ -17,7 +20,7 @@ export const ThemeBox = forwardRef<HTMLDivElement, ThemeBoxProps>(
           className
         )}
         {...props}
-        data-theme="lofi"
+        data-theme={theme}
       />
     );
   }

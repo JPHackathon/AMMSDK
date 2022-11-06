@@ -2,6 +2,7 @@ import {
   Bars3Icon,
   CalculatorIcon,
   RectangleGroupIcon,
+  SwatchIcon,
 } from "@heroicons/react/24/outline";
 import Avatar from "boring-avatars";
 import Link from "next/link";
@@ -46,6 +47,10 @@ const SideBody = () => {
       <Link href="/games" className="btn btn-ghost justify-start p-2 gap-2">
         <RectangleGroupIcon className="w-6 h-6" />
         Games
+      </Link>
+      <Link href="/theme" className="btn btn-ghost justify-start p-2 gap-2">
+        <SwatchIcon className="w-6 h-6" />
+        Theme
       </Link>
     </>
   );
