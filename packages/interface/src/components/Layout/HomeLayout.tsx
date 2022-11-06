@@ -4,6 +4,7 @@ import {
   RectangleGroupIcon,
 } from "@heroicons/react/24/outline";
 import Avatar from "boring-avatars";
+import Link from "next/link";
 import { useState } from "react";
 
 import { useAMM } from "../../hooks/useAMM";
@@ -11,7 +12,7 @@ import { Drawer, NoSSR, ThemeBox } from "../Elements";
 
 const SideBody = () => {
   const { tempWallet, address, loginWeave } = useAMM();
-  console.log(address);
+
   return (
     <>
       <div className="border-b-2 flex p-2 h-16 items-center">
@@ -37,14 +38,15 @@ const SideBody = () => {
           </button>
         )}
       </div>
-      <a className="btn btn-ghost justify-start p-2 gap-2">
+
+      <Link href="/" className="btn btn-ghost justify-start p-2 gap-2">
         <CalculatorIcon className="w-6 h-6" />
         Swap
-      </a>
-      <a className="btn btn-ghost justify-start p-2 gap-2">
+      </Link>
+      <Link href="/games" className="btn btn-ghost justify-start p-2 gap-2">
         <RectangleGroupIcon className="w-6 h-6" />
         Games
-      </a>
+      </Link>
     </>
   );
 };

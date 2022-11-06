@@ -11,6 +11,7 @@ import {
   useModal,
 } from "../components/Elements";
 import { HomeLayout } from "../components/Layout/HomeLayout";
+import { useAMM } from "../hooks/useAMM";
 import { AMM } from "../libs/ammsdk";
 import { AMMUpdateFlagState } from "../states/amm/atoms";
 import {
@@ -112,6 +113,7 @@ const RelateModal: React.FC<
 };
 
 const SwapCard = () => {
+  const { loginWeave } = useAMM();
   const { tempWallet } = useWeaveData();
   const { pairs, games } = useAMMData();
   const setUpdate = useSetRecoilState(AMMUpdateFlagState);
@@ -228,7 +230,12 @@ const SwapCard = () => {
           </div>
         </div>
       </div>
-      {game0 && game1 && (!relation0 || !relation1) && (
+      {!tempWallet && (
+        <button className="btn" onClick={loginWeave}>
+          Connect
+        </button>
+      )}
+      {game0 && game1 && (!relation0 || !relation1) && tempWallet && (
         <div className="flex gap-2 flex-wrap">
           {Boolean(relation0) || (
             <button className="btn btn-primary flex-1" onClick={relate0Open}>
@@ -242,7 +249,7 @@ const SwapCard = () => {
           )}
         </div>
       )}
-      {game0 && game1 && relation0 && relation1 && (
+      {game0 && game1 && relation0 && relation1 && tempWallet && (
         <button
           className={clsx("btn btn-primary w-full", loading && "loading")}
           disabled={
